@@ -76,18 +76,6 @@ public:
 	/* @pre None
 	/* @post The quotient of p1 and p2 is returned.*/
 		fraction operator /(const fraction& other);
-
-	/** checks if two fractions are identical
-	/* @param p1 and p2 are fractions
-	/* @pre None
-	/* @post The return value is true if p1 and p2 are identical.*/
-		bool operator ==(const fraction& other);
-
-	/** checks if two fractions are not identical
-	/* @param fq and f2 are fractions
-	/* @pre None
-	/* @post The return value is true if p1 and p2 are not identical.*/
-		bool operator !=(const fraction& other);
 		
 	/**Nonmember function */
 	/** reads the coordinates of a fraction from the istream

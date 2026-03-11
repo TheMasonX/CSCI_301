@@ -1,4 +1,4 @@
-#include "newfraction1.h"
+#include "newfraction2.h"
 #include <math.h>
 
 fraction::fraction(int num, int denom) : numerator(num), denominator(denom) {}
@@ -9,7 +9,9 @@ void fraction::set_denominator(int denom) { denominator = denom; }
 void fraction::set_numerator(int num) { numerator = num; }
 int fraction::get_numerator() const { return numerator; }
 
-void fraction::display() const { std::cout << numerator << "/" << denominator; }
+void fraction::display() const { std::cout << this; }
+
+
 
 fraction add(const fraction& lhs, const fraction& rhs) {
     int num_l = lhs.get_numerator();
@@ -84,3 +86,23 @@ fraction divide(const fraction& lhs, const fraction& rhs) {
     int denom = denom_l * num_r;
     return fraction(num, denom);
 }
+
+std::ostream& operator <<(std::ostream& outs, const fraction& source)
+// Library facilities used: iostream
+{
+    outs << source.get_numerator() << "/" << source.get_denominator();
+    return outs;
+}
+
+std::istream& operator >>(std::istream& ins, fraction& target)
+// Library facilities used: iostream
+// Friend of: fraction class
+{
+    ins >> target.numerator >> target.denominator;
+    return ins;
+}
+
+fraction fraction::operator+(const fraction &other) { return add(*this, other); }
+fraction fraction::operator-(const fraction &other) { return subtract(*this, other); }
+fraction fraction::operator*(const fraction &other) { return multiply(*this, other); }
+fraction fraction::operator/(const fraction &other) { return divide(*this, other); }

@@ -51,15 +51,6 @@ public:
      * @return None*/
     void display() const;
 
-		
-	/**Nonmember function */
-	/** reads the coordinates of a fraction from the istream
-	/* @param ins is the istream, target is a fraction
-	/* @pre None
-	/* @post The numerator and denominator of target have been 
-	/*  read from ins. The return value is the istream ins.*/
-	friend std::istream& operator >>(std::istream& ins, fraction& target);
-
 };
 
 /** ========= NONMEMBER FUNCTIONS ========= */
@@ -95,12 +86,5 @@ fraction multiply(const fraction& lhs, const fraction& rhs);
  * @post None
  * @return the quotient of lhs and rhs*/
 fraction divide(const fraction& lhs, const fraction& rhs);
-
-/** writes the numerator and denominator of a fraction to the ostream
-/* @param outs is the ostream, source is a fraction
-/* @pre None
-/* @post the numerator and denominator of source have been written to outs.
-/* The return value is the ostream outs.*/
-std::ostream& operator <<(std::ostream & outs, const fraction& source);
 
 #endif // NEWFRACTION1_H
