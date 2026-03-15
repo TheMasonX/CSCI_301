@@ -15,5 +15,7 @@ CSCI-301: Computer Science 2
 ## Projects
 
 ### Project 1
+[![Project1 Runner](https://github.com/TheMasonX/CSCI_301/actions/workflows/project1_runner.yml/badge.svg?branch=main)](https://github.com/TheMasonX/CSCI_301/actions/workflows/project1_runner.yml)
+
 Project 1 resides in the `Project1/` directory and includes a series of C++ programs related to fractions and basic tasks for the course.  The files include `fraction.cpp`/`.h` along with multiple implementations (`newfraction1`, `newfraction2`) and three task source files (`project1_task1.cpp`, `project1_task2.cpp`, `project1_task3.cpp`).  It demonstrates working with classes, operator overloading, and simple command‑line input/output as part of the first homework assignment.
 

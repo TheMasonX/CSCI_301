@@ -17,28 +17,19 @@ jobs:
     - name: Run Task1
       run: |
         cd Project1
-        script typescript_task1
-        g++ project1_task1.cpp fraction.cpp
-        ./a.out
-        exit
+        script -c "g++ project1_task1.cpp fraction.cpp && ./a.out" typescript_task1
         cat typescript_task1
 
     - name: Run Task2
       run: |
         cd Project1
-        script typescript_task2
-        g++ project1_task2.cpp newfraction1.cpp
-        echo -e "3 5\n2 3" | ./a.out
-        exit
+        script -c "g++ project1_task2.cpp newfraction1.cpp && echo -e '3 5\n2 3' | ./a.out" typescript_task2
         cat typescript_task2
 
     - name: Run Task3
       run: |
         cd Project1
-        script typescript_task3
-        g++ project1_task3.cpp newfraction2.cpp
-        echo -e "3 5\n2 3" | ./a.out
-        exit
+        script -c "g++ project1_task3.cpp newfraction2.cpp && echo -e '3 5\n2 3' | ./a.out" typescript_task3
         cat typescript_task3
 
     - name: Upload script files
