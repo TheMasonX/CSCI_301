@@ -1,81 +1,0 @@
-Script started on 2026-03-11 00:46:02-05:00 [TERM="xterm-256color" TTY="/dev/pts/12" COLUMNS="101" LINES="8"]
-[?2004h]0;norrtec@TheMasonX-Omen: ~/CSCI_301/Project1[01;32mnorrtec@TheMasonX-Omen[00m:[01;34m~/CSCI_301/Project1[00m$ 
-[?2004l[?2004h]0;norrtec@TheMasonX-Omen: ~/CSCI_301/Project1[01;32mnorrtec@TheMasonX-Omen[00m:[01;34m~/CSCI_301/Project1[00m$ [7mscript typescript_project1_task1[27m
-[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cscript typescript_project1_task1
-[A
-[?2004lScript started, output log file is 'typescript_project1_task1'.
-[?2004h]0;norrtec@TheMasonX-Omen: ~/CSCI_301/Project1[01;32mnorrtec@TheMasonX-Omen[00m:[01;34m~/CSCI_301/Project1[00m$ [?2004l
-exit
-Script done.
-[?2004h]0;norrtec@TheMasonX-Omen: ~/CSCI_301/Project1[01;32mnorrtec@TheMasonX-Omen[00m:[01;34m~/CSCI_301/Project1[00m$ [7mscript typescript_project1_task1[27m
-[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cscript typescript_project1_task1
-[A
-[?2004lScript started, output log file is 'typescript_project1_task1'.
-[?2004h]0;norrtec@TheMasonX-Omen: ~/CSCI_301/Project1[01;32mnorrtec@TheMasonX-Omen[00m:[01;34m~/CSCI_301/Project1[00m$ [7mg++ -o task1.o project1_task1.cpp fraction.cpp[27m
-[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cg++ -o task1.o project1_task1.cpp fraction.cpp
-[A
-[?2004l[?2004h]0;norrtec@TheMasonX-Omen: ~/CSCI_301/Project1[01;32mnorrtec@TheMasonX-Omen[00m:[01;34m~/CSCI_301/Project1[00m$ [7m./task1.o[27m
-[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C./task1.o
-[A
-[?2004lf1 (original): 0/1
-f1 (modified): 1/2
-f2: 3/4
-f2 numerator: 3
-f2 denominator: 4
-[?2004h]0;norrtec@TheMasonX-Omen: ~/CSCI_301/Project1[01;32mnorrtec@TheMasonX-Omen[00m:[01;34m~/CSCI_301/Project1[00m$ [?2004l
-exit
-Script done.
-[?2004h]0;norrtec@TheMasonX-Omen: ~/CSCI_301/Project1[01;32mnorrtec@TheMasonX-Omen[00m:[01;34m~/CSCI_301/Project1[00m$ [7mscript typescript_project1_task2[27m
-[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cscript typescript_project1_task2
-[A
-[?2004lScript started, output log file is 'typescript_project1_task2'.
-[?2004h]0;norrtec@TheMasonX-Omen: ~/CSCI_301/Project1[01;32mnorrtec@TheMasonX-Omen[00m:[01;34m~/CSCI_301/Project1[00m$ [7mg++ -o task2.o project1_task2.cpp newfraction1.cpp[27m
-[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cg++ -o task2.o project1_task2.cpp newfraction1.cpp
-[A
-[?2004l[?2004h]0;norrtec@TheMasonX-Omen: ~/CSCI_301/Project1[01;32mnorrtec@TheMasonX-Omen[00m:[01;34m~/CSCI_301/Project1[00m$ [7m./task2.o[27m
-[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C./task2.o
-[A
-[?2004lEnter the first fraction (numerator and denominator): 3 5
-Enter the second fraction (numerator and denominator): 2 3
-
-The two fractions entered are:
-f1 = 3/5
-f2 = 2/3
-
-The arithmetic operations on these two fractions:
-f1 + f2 = 19/15
-f1 - f2 = -1/15
-f1 * f2 = 6/15
-f1 / f2 = 9/10
-[?2004h]0;norrtec@TheMasonX-Omen: ~/CSCI_301/Project1[01;32mnorrtec@TheMasonX-Omen[00m:[01;34m~/CSCI_301/Project1[00m$ [?2004l
-exit
-Script done.
-[?2004h]0;norrtec@TheMasonX-Omen: ~/CSCI_301/Project1[01;32mnorrtec@TheMasonX-Omen[00m:[01;34m~/CSCI_301/Project1[00m$ [7mscript typescript_project1_task3[27m
-[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cscript typescript_project1_task3
-[A
-[?2004lScript started, output log file is 'typescript_project1_task3'.
-[?2004h]0;norrtec@TheMasonX-Omen: ~/CSCI_301/Project1[01;32mnorrtec@TheMasonX-Omen[00m:[01;34m~/CSCI_301/Project1[00m$ [7mg++ -o task3.o project1_task3.cpp newfraction2.cpp[27m
-[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cg++ -o task3.o project1_task3.cpp newfraction2.cpp
-[A
-[?2004l[?2004h]0;norrtec@TheMasonX-Omen: ~/CSCI_301/Project1[01;32mnorrtec@TheMasonX-Omen[00m:[01;34m~/CSCI_301/Project1[00m$ [7m./task3.o[27m
-[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C./task3.o
-[A
-[?2004lEnter the first fraction (numerator and denominator): 3 5
-Enter the second fraction (numerator and denominator): 2 3
-
-The two fractions entered are:
-f1 = 3/5
-f2 = 2/3
-
-The arithmetic operations on these two fractions:
-f1 + f2 = 19/15
-f1 - f2 = -1/15
-f1 * f2 = 6/15
-f1 / f2 = 9/10
-[?2004h]0;norrtec@TheMasonX-Omen: ~/CSCI_301/Project1[01;32mnorrtec@TheMasonX-Omen[00m:[01;34m~/CSCI_301/Project1[00m$ [?2004l
-exit
-Script done.
-[?2004h]0;norrtec@TheMasonX-Omen: ~/CSCI_301/Project1[01;32mnorrtec@TheMasonX-Omen[00m:[01;34m~/CSCI_301/Project1[00m$ [?2004l
-exit
-
-Script done on 2026-03-11 00:56:38-05:00 [COMMAND_EXIT_CODE="0"]

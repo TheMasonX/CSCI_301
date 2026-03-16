@@ -16,22 +16,31 @@
 #include "fraction.h"
 
 int main() {
+    std::cout << "Enter the first fraction (numerator and denominator): ";
+    int num1, denom1;
+    std::cin >> num1 >> denom1;
+
+    std::cout << "Enter the second fraction (numerator and denominator): ";
+    int num2, denom2;
+    std::cin >> num2 >> denom2;
+
+    // Excercise the default constructor and the parameterized constructor
     fraction f1;
-    fraction f2(3, 4);
+    fraction f2(num2, denom2);
 
-    std::cout << "f1 (original): ";
+    std::cout << "Fraction 1 (default constructor): ";
     f1.display();
 
-    std::cout << "f1 (modified): ";
-    f1.set_numerator(1);
-    f1.set_denominator(2);
+    std::cout << "Fraction 1 (set values): ";
+    f1.set_numerator(num1);
+    f1.set_denominator(denom1);
     f1.display();
 
-    std::cout << "f2: ";
+    std::cout << "Fraction 2 (parameterized constructor): ";
     f2.display();
 
-    std::cout << "f2 numerator: " << f2.get_numerator() << std::endl;
-    std::cout << "f2 denominator: " << f2.get_denominator() << std::endl;
+    std::cout << "Fraction 2 numerator: " << f2.get_numerator() << std::endl;
+    std::cout << "Fraction 2 denominator: " << f2.get_denominator() << std::endl;
 
     return 0;
 }

@@ -10,6 +10,8 @@ on:
 jobs:
   run-project1:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
     - uses: actions/checkout@v4
@@ -17,19 +19,34 @@ jobs:
     - name: Run Task1
       run: |
         cd Project1
-        script -c "g++ project1_task1.cpp fraction.cpp && ./a.out" typescript_task1
+        g++ project1_task1.cpp fraction.cpp
+        script -c "
+          echo '=== Run 1: 3/5 and 2/3 ===' && echo -e '3 5\n2 3' | ./a.out &&
+          echo '=== Run 2: 1/2 and 3/4 ===' && echo -e '1 2\n3 4' | ./a.out &&
+          echo '=== Run 3: 7/3 and 2/5 ===' && echo -e '7 3\n2 5' | ./a.out
+        " typescript_task1
         cat typescript_task1
 
     - name: Run Task2
       run: |
         cd Project1
-        script -c "g++ project1_task2.cpp newfraction1.cpp && echo -e '3 5\n2 3' | ./a.out" typescript_task2
+        g++ project1_task2.cpp newfraction1.cpp
+        script -c "
+          echo '=== Run 1: 3/5 and 2/3 ===' && echo -e '3 5\n2 3' | ./a.out &&
+          echo '=== Run 2: 1/2 and 3/4 ===' && echo -e '1 2\n3 4' | ./a.out &&
+          echo '=== Run 3: 7/3 and 2/5 ===' && echo -e '7 3\n2 5' | ./a.out
+        " typescript_task2
         cat typescript_task2
 
     - name: Run Task3
       run: |
         cd Project1
-        script -c "g++ project1_task3.cpp newfraction2.cpp && echo -e '3 5\n2 3' | ./a.out" typescript_task3
+        g++ project1_task3.cpp newfraction2.cpp
+        script -c "
+          echo '=== Run 1: 3/5 and 2/3 ===' && echo -e '3 5\n2 3' | ./a.out &&
+          echo '=== Run 2: 1/2 and 3/4 ===' && echo -e '1 2\n3 4' | ./a.out &&
+          echo '=== Run 3: 7/3 and 2/5 ===' && echo -e '7 3\n2 5' | ./a.out
+        " typescript_task3
         cat typescript_task3
 
     - name: Upload script files
