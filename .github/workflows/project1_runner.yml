@@ -1,5 +1,5 @@
-# This workflow compiles and runs the C++ programs for Project1
-name: Project1 Runner
+# This workflow compiles and runs the C++ programs for project1
+name: project1 Runner
 
 on:
   push:
@@ -54,6 +54,6 @@ jobs:
       with:
         name: typescript-files
         path: |
-          Project1/typescript_task1
-          Project1/typescript_task2
-          Project1/typescript_task3
+          project1/typescript_task1
+          project1/typescript_task2
+          project1/typescript_task3
