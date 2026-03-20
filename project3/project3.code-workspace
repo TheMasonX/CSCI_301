@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../Examples"
+		},
+		{
+			"path": "../.github"
+		}
+	],
+	"settings": {}
+}
