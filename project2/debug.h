@@ -1,3 +1,13 @@
+/**
+ * @file debug.h
+ * @brief Contains unit tests for Item and ShoppingCart.
+ *
+ * Problem: Validate class behavior required by Project 2.
+ * StarID and Name: <YOUR_STARTID_AND_NAME>
+ * Due Date: 3/19/26
+ * Instructor: <INSTRUCTOR_NAME>
+ * Comments: Tests are enabled by DEBUG_ITEM and DEBUG_CART compile-time flags.
+ */
 #ifndef DEBUG_H_
 #define DEBUG_H_
 
@@ -21,10 +31,11 @@
 #if DEBUG_ITEM
 #include "Item.h"
 
+/** @brief Tests Item stream extraction/insertion operators. */
 bool test_item_streams() {
     bool passed = true;
 
-    // Declare the expected values
+    // Declare the expe/cted values
     std::string test_name("T-Shirt");
     float test_price(19.99);
     int test_quantity(42);
@@ -63,6 +74,7 @@ bool test_item_streams() {
     return passed;
 }
 
+/** @brief Tests Item constructor initialization behavior. */
 bool test_item_constructor() {
     bool passed = true;
 
@@ -85,6 +97,7 @@ bool test_item_constructor() {
     return passed;
 }
 
+/** @brief Tests Item setters and equality semantics. */
 bool test_item_setter() {
     bool passed = true;
 
@@ -114,6 +127,7 @@ bool test_item_setter() {
     return passed;
 }
 
+/** @brief Runs all Item tests. */
 int run_item_tests() {
     if (!test_item_streams()) {
         std::cerr << "test_item_streams() failed!" << std::endl;
@@ -143,6 +157,7 @@ int run_item_tests() {
 
 #include "ShoppingCart.h"
 
+/** @brief Tests ShoppingCart add behavior and total updates. */
 bool test_cart_add() {
     bool passed = true;
 
@@ -166,11 +181,12 @@ bool test_cart_add() {
     ASSERT_EQUAL("after adding, ShoppingCart.getCurrentSize()", actual_size, expected_size)
 
     float actual_total = test_cart.get_totalPrice();
-    ASSERT_EQUAL("after adding, ShoppingCart.getCurrentSize()", actual_total, item_price)
+    ASSERT_EQUAL("after adding, ShoppingCart.getCurrentSize()", actual_total, item_price * item_quantity)
 
     return passed;
 }
 
+/** @brief Tests ShoppingCart remove behavior for existing and missing items. */
 bool test_cart_remove() {
     bool passed = true;
     
@@ -181,45 +197,84 @@ bool test_cart_remove() {
     ShoppingCart test_cart;
     test_cart.add(test_item);
     float total_before = test_cart.get_totalPrice();
-    ASSERT_EQUAL("ShoppingCart.getCurrentSize() before removal", total_before, item_price)
+    ASSERT_EQUAL("ShoppingCart.getCurrentSize() before removal", total_before, item_price * item_quantity)
 
     // Exists in cart
     bool removed = test_cart.remove(test_item);
     ASSERT_TRUE("ShoppingCart.remove(item) first removal", removed)
 
+    float total_after_remove = test_cart.get_totalPrice();
+    ASSERT_EQUAL("ShoppingCart.get_totalPrice() after first removal", total_after_remove, 0)
+
     // DNE in cart
     bool removed_again = test_cart.remove(test_item);
     ASSERT_FALSE("ShoppingCart.remove(item) second removal", removed_again)
 
+    float total_after_second_remove = test_cart.get_totalPrice();
+    ASSERT_EQUAL("ShoppingCart.get_totalPrice() after second removal", total_after_second_remove, 0)
+
     return passed;
 }
 
-bool test_cart_change() {
+/** @brief Tests changing quantity for existing and non-existing items. */
+bool test_cart_change_quantity() {
     bool passed = true;
-    
+
+    std::string item_name = "T-Shirt";
+    std::string missing_name = "Hoodie";
+    float item_price = 19.99;
+    int item_quantity = 42;
+    int item_quantity2 = 1;
+    Item existing_item(item_name, item_price, item_quantity);
+    Item updated_item(item_name, item_price, item_quantity2);
+    Item missing_item(missing_name, item_price, item_quantity);
+    ShoppingCart test_cart;
+
     // Exists in cart
+    bool added = test_cart.add(existing_item);
+    ASSERT_TRUE("ShoppingCart.add(existing_item)", added)
+
+    bool removed_existing = test_cart.remove(existing_item);
+    ASSERT_TRUE("ShoppingCart.remove(existing_item)", removed_existing)
+
+    bool added_updated = test_cart.add(updated_item);
+    ASSERT_TRUE("ShoppingCart.add(updated_item)", added_updated)
+
+    std::vector<Item> contents = test_cart.toVector();
+    ASSERT_EQUAL("ShoppingCart.getCurrentSize() after quantity change", static_cast<int>(contents.size()), 1)
+    ASSERT_EQUAL("updated item quantity", contents[0].get_quantity(), item_quantity2)
+
+    float actual_total = test_cart.get_totalPrice();
+    ASSERT_EQUAL("ShoppingCart.get_totalPrice() after quantity change", actual_total, item_price * item_quantity2)
 
     // DNE in cart
+    bool removed_missing = test_cart.remove(missing_item);
+    ASSERT_FALSE("ShoppingCart.remove(missing_item)", removed_missing)
+
+    float total_after_missing_remove = test_cart.get_totalPrice();
+    ASSERT_EQUAL("ShoppingCart.get_totalPrice() after missing removal", total_after_missing_remove, item_price * item_quantity2)
+
     return passed;
 }
 
+/** @brief Runs all ShoppingCart tests. */
 int run_cart_tests() {
     if (!test_cart_add()) {
-        std::cerr << "test_item_streams() failed!" << std::endl;
+        std::cerr << "test_cart_add() failed!" << std::endl;
         return 1;
     }
 
     std::cout << SEPARATOR << std::endl;
 
     if (!test_cart_remove()) {
-        std::cerr << "test_item_constructor() failed!" << std::endl;
+        std::cerr << "test_cart_remove() failed!" << std::endl;
         return 1;
     }
 
     std::cout << SEPARATOR << std::endl;
 
-    if (!test_cart_change()) {
-        std::cerr << "test_item_setter() failed!" << std::endl;
+    if (!test_cart_change_quantity()) {
+        std::cerr << "test_cart_change_quantity() failed!" << std::endl;
         return 1;
     }
 
@@ -228,6 +283,7 @@ int run_cart_tests() {
 
 #endif // DEBUG_CART
 
+/** @brief Runs all enabled test suites and returns accumulated failures. */
 int run_tests() {
     int result = 0;
 

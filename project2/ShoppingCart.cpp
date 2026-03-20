@@ -1,20 +1,35 @@
+/**
+ * @file ShoppingCart.cpp
+ * @brief Implements ShoppingCart operations.
+ */
 #include "ShoppingCart.h"
 
-ShoppingCart::ShoppingCart() : totalPrice(0) { }
+#ifndef SHOPPINGCART_CPP_
+#define SHOPPINGCART_CPP_
 
-float ShoppingCart::get_totalPrice() const { return totalPrice; }
+inline ShoppingCart::ShoppingCart() : totalPrice(0) { }
 
-bool ShoppingCart::add(const Item& newEntry) {
-    totalPrice += newEntry.get_price();
-    return Bag<Item>::add(newEntry);
+inline float ShoppingCart::get_totalPrice() const { return totalPrice; }
+
+inline bool ShoppingCart::add(const Item& newEntry) {
+    bool added = Bag<Item>::add(newEntry);
+    if (added) {
+        totalPrice += newEntry.get_price() * newEntry.get_quantity();
+    }
+    return added;
 }
 
-bool ShoppingCart::remove(const Item& anEntry) {
-    totalPrice -= anEntry.get_price();
-    return Bag<Item>::remove(anEntry);
+inline bool ShoppingCart::remove(const Item& anEntry) {
+    bool removed = Bag<Item>::remove(anEntry);
+    if (removed) {
+        totalPrice -= anEntry.get_price() * anEntry.get_quantity();
+    }
+    return removed;
 }
 
-void ShoppingCart::clear() {
+inline void ShoppingCart::clear() {
     totalPrice = 0;
     Bag<Item>::clear();
 }
+
+#endif // SHOPPINGCART_CPP_

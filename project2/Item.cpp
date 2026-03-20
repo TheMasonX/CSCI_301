@@ -1,8 +1,14 @@
+/**
+ * @file Item.cpp
+ * @brief Implements the Item class and stream operators.
+ */
 #include "Item.h"
 
+/** @brief Default constructor implementation. */
 Item::Item() : name(""), price(0), quantity(0)
 { }
 
+/** @brief Full constructor implementation. */
 Item::Item(std::string name, float price, int quantity)
 {
     this->name = name;
@@ -21,6 +27,7 @@ void Item::set_quantity(const int quantity) { this->quantity = quantity; }
 
 bool Item::operator == (const Item& other) const
 {
+    // Per requirements, equality ignores quantity.
     return (other.name == name) && (other.price == price);
 }
 

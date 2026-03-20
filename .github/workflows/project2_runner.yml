@@ -1,0 +1,36 @@
+# This workflow compiles and runs the C++ programs for project2
+name: project2 Runner
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  run-project2:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Run Project2
+      run: |
+        cd project2
+        g++ project2.cpp Item.cpp ShoppingCart.cpp
+        script -c "
+          echo '=== Run 1: single item, no modification ===' && printf 'Tshirt 19.99 2\nn\nn\n' | ./a.out &&
+          echo '=== Run 2: add item during modification ===' && printf 'Pen 1.50 3\nn\ny\n1\nNotebook 2.00 1\nn\n' | ./a.out &&
+          echo '=== Run 3: change quantity with invalid then valid value ===' && printf 'Mug 12.00 4\nn\ny\n3\nMug 12.00 4\n-2\n2\nn\n' | ./a.out
+        " project2_typescript_Luke_Norr
+        cat project2_typescript_Luke_Norr
+  
+
+    - name: Upload script files
+      uses: actions/upload-artifact@v4
+      with:
+        name: typescript-files
+        path: |
+          project2/project2_typescript_Luke_Norr
