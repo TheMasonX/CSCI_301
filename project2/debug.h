@@ -1,13 +1,25 @@
 #ifndef DEBUG_H_
 #define DEBUG_H_
 
-#include "Item.h"
-#include "ShoppingCart.h"
+#include <iostream> // Required for istringstream
 #include <sstream> // Required for istringstream
 
 #define SEPARATOR "\n=================================================\n"
 
-#ifdef DEBUG_ITEM
+#define PRINT_RES(msg, actual, expected) msg << " returned: " << actual << ". Expected: " << expected << std::endl;
+#define PRINT_PASS(msg, actual, expected) std::cout << "PASS: " << PRINT_RES(msg, actual, expected)
+#define PRINT_FAIL(msg, actual, expected) std::cerr << "FAIL: " << PRINT_RES(msg, actual, expected)
+#define ASSERT(condition, msg, actual, expected) if (condition) { PRINT_PASS(msg, actual, expected) } \
+                                                 else { passed = false; PRINT_FAIL(msg, actual, expected) }
+
+#define ASSERT_EQUAL(msg, actual, expected) ASSERT(actual == expected, msg, actual, expected)
+#define ASSERT_NOT_EQUAL(msg, actual, expected) ASSERT(!(actual == expected), msg, actual, expected)
+
+#define ASSERT_TRUE(msg, actual) ASSERT_EQUAL(msg, actual, true)
+#define ASSERT_FALSE(msg, actual) ASSERT_EQUAL(msg, actual, false)
+
+#if DEBUG_ITEM
+#include "Item.h"
 
 bool test_item_streams() {
     bool passed = true;
@@ -32,53 +44,21 @@ bool test_item_streams() {
     std::istringstream test_istream(input_string.str());
     std::ostringstream test_ostream;
 
-    Item item;
-    test_istream >> item;
-    test_ostream << item;
+    Item actual_item;
+    test_istream >> actual_item;
+    test_ostream << actual_item;
 
-    std::string actual_name = item.get_name();
-    if (actual_name != test_name) {
-        passed = false;
-        std::cerr << "FAIL: item.get_name() returned: " << actual_name
-                  << ". Expected: " << test_name << std::endl;
-    }
-    else {
-        std::cout << "PASS: item.get_name() returned: " << actual_name
-                  << ". Expected: " << test_name << std::endl;
-    }
+    std::string actual_name = actual_item.get_name();
+    ASSERT_EQUAL("Item.get_name()", actual_name, test_name)
 
-    float actual_price = item.get_price();
-    if (actual_price != test_price) {
-        passed = false;
-        std::cerr << "FAIL: item.get_price() returned: " << actual_price
-                  << ". Expected: " << test_price << std::endl;
-    }
-    else {
-        std::cout << "PASS: item.get_price() returned: " << actual_price
-                  << ". Expected: " << test_price << std::endl;
-    }
+    float actual_price = actual_item.get_price();
+    ASSERT_EQUAL("Item.get_price()", actual_price, test_price)
 
-    int actual_quantity = item.get_quantity();
-    if (actual_quantity != test_quantity) {
-        passed = false;
-        std::cerr << "FAIL: item.get_quantity() returned: " << actual_quantity
-                  << ". Expected: " << test_quantity << std::endl;
-    }
-    else {
-        std::cout << "PASS: item.get_quantity() returned: " << actual_quantity
-                  << ". Expected: " << test_quantity << std::endl;
-    }
+    int actual_quantity = actual_item.get_quantity();
+    ASSERT_EQUAL("Item.get_quantity()", actual_quantity, test_quantity)
 
     std::string actual_output_string = test_ostream.str();
-    if (actual_output_string != test_output_string) {
-        passed = false;
-        std::cout << "FAIL: << operator returned: " << actual_output_string
-                  << ". Expected: " << test_output_string << std::endl;
-    }
-    else {
-        std::cout << "PASS: << operator returned: " << actual_output_string
-                  << ". Expected: " << test_output_string << std::endl;
-    }
+    ASSERT_EQUAL("<< operator", actual_output_string, test_output_string);
 
     return passed;
 }
@@ -91,40 +71,16 @@ bool test_item_constructor() {
     float test_price(19.99);
     int test_quantity(42);
 
-    Item item(test_name, test_price, test_quantity);
+    Item actual_item(test_name, test_price, test_quantity);
 
-    std::string actual_name = item.get_name();
-    if (actual_name != test_name) {
-        passed = false;
-        std::cerr << "FAIL: item.get_name() returned: " << actual_name
-                  << ". Expected: " << test_name << std::endl;
-    }
-    else {
-        std::cout << "PASS: item.get_name() returned: " << actual_name
-                  << ". Expected: " << test_name << std::endl;
-    }
+    std::string actual_name = actual_item.get_name();
+    ASSERT_EQUAL("Item.get_name()", actual_name, test_name)
 
-    float actual_price = item.get_price();
-    if (actual_price != test_price) {
-        passed = false;
-        std::cerr << "FAIL: item.get_price() returned: " << actual_price
-                  << ". Expected: " << test_price << std::endl;
-    }
-    else {
-        std::cout << "PASS: item.get_price() returned: " << actual_price
-                  << ". Expected: " << test_price << std::endl;
-    }
+    float actual_price = actual_item.get_price();
+    ASSERT_EQUAL("Item.get_price()", actual_price, test_price)
 
-    int actual_quantity = item.get_quantity();
-    if (actual_quantity != test_quantity) {
-        passed = false;
-        std::cerr << "FAIL: item.get_quantity() returned: " << actual_quantity
-                  << ". Expected: " << test_quantity << std::endl;
-    }
-    else {
-        std::cout << "PASS: item.get_quantity() returned: " << actual_quantity
-                  << ". Expected: " << test_quantity << std::endl;
-    }
+    int actual_quantity = actual_item.get_quantity();
+    ASSERT_EQUAL("Item.get_quantity()", actual_quantity, test_quantity)
 
     return passed;
 }
@@ -137,63 +93,23 @@ bool test_item_setter() {
     float test_price(19.99);
     int test_quantity(42);
 
-    Item item;
+    Item actual_item;
     Item test_item(test_name, test_price, test_quantity);
-    if (item == test_item) {
-        passed = false;
-        std::cerr << "FAIL: == operator returned: true"
-                  << ". Expected: false" << std::endl;
-    }
-    else {
-        std::cout << "PASS: == operator returned: false"
-                  << ". Expected: false" << std::endl;
-    }
+    ASSERT_NOT_EQUAL("== operator", actual_item, test_item);
 
-    item.set_name(test_name);
-    std::string actual_name = item.get_name();
-    if (actual_name != test_name) {
-        passed = false;
-        std::cerr << "FAIL: item.get_name() returned: " << actual_name
-                  << ". Expected: " << test_name << std::endl;
-    }
-    else {
-        std::cout << "PASS: item.get_name() returned: " << actual_name
-                  << ". Expected: " << test_name << std::endl;
-    }
+    actual_item.set_name(test_name);
+    std::string actual_name = actual_item.get_name();
+    ASSERT_EQUAL("Item.get_name()", actual_name, test_name);
 
-    item.set_price(test_price);
-    float actual_price = item.get_price();
-    if (actual_price != test_price) {
-        passed = false;
-        std::cerr << "FAIL: item.get_price() returned: " << actual_price
-                  << ". Expected: " << test_price << std::endl;
-    }
-    else {
-        std::cout << "PASS: item.get_price() returned: " << actual_price
-                  << ". Expected: " << test_price << std::endl;
-    }
+    actual_item.set_price(test_price);
+    float actual_price = actual_item.get_price();
+    ASSERT_EQUAL("Item.get_price()", actual_price, test_price);
 
-    item.set_quantity (test_quantity);
-    int actual_quantity = item.get_quantity();
-    if (actual_quantity != test_quantity) {
-        passed = false;
-        std::cerr << "FAIL: item.get_quantity() returned: " << actual_quantity
-                  << ". Expected: " << test_quantity << std::endl;
-    }
-    else {
-        std::cout << "PASS: item.get_quantity() returned: " << actual_quantity
-                  << ". Expected: " << test_quantity << std::endl;
-    }
+    actual_item.set_quantity (test_quantity);
+    int actual_quantity = actual_item.get_quantity();
+    ASSERT_EQUAL("Item.get_quantity()", actual_quantity, test_quantity);
 
-    if (item == test_item) {
-        std::cout << "PASS: == operator returned: true"
-                  << ". Expected: true" << std::endl;
-    }
-    else {
-        passed = false;
-        std::cerr << "FAIL: == operator returned: false"
-                  << ". Expected: true" << std::endl;
-    }
+    ASSERT_EQUAL("== operator", actual_item, test_item);
 
     return passed;
 }
@@ -223,10 +139,12 @@ int run_item_tests() {
 
 #endif // DEBUG_ITEM
 
-#ifdef DEBUG_CART
+#if DEBUG_CART
+
+#include "ShoppingCart.h"
 
 bool test_cart_add() {
-    bool passed;
+    bool passed = true;
 
     std::string item_name = "T-Shirt";
     float item_price = 19.99;
@@ -235,74 +153,49 @@ bool test_cart_add() {
     ShoppingCart test_cart;
 
     int initial_total = test_cart.get_totalPrice();
-    if (initial_total == 0) {
-        std::cout << "PASS: initial cart total was 0"
-                  << ". Expected: 0" << std::endl;
-    }
-    else {
-        passed = false;
-        std::cerr << "FAIL: initial cart total was: " << initial_total
-                  << ". Expected: 0" << std::endl;
-    }
+    ASSERT_EQUAL("initial ShoppingCart.get_totalPrice()", initial_total, 0)
 
     int initial_size = test_cart.getCurrentSize();
-    if (initial_size == 0) {
-        std::cout << "PASS: initial cart size was 0"
-                  << ". Expected: 0" << std::endl;
-    }
-    else {
-        passed = false;
-        std::cerr << "FAIL: initial cart size was: " << initial_size
-                  << ". Expected: 0" << std::endl;
-    }
+    ASSERT_EQUAL("initial ShoppingCart.getCurrentSize()", initial_size, 0)
 
     bool added = test_cart.add(test_item);
-    if (added) {
-        std::cout << "PASS: item was added to cart" << std::endl;
-    }
-    else {
-        passed = false;
-        std::cerr << "FAIL: item was not added to cart" << std::endl;
-    }
+    ASSERT_TRUE("ShoppingCart.add(item)", added)
     
     int actual_size = test_cart.getCurrentSize();
     int expected_size = 1;
-    if (actual_size == expected_size) {
-        std::cout << "PASS: cart size was: " << actual_size
-                  << ". Expected: " << expected_size << std::endl;
-    }
-    else {
-        passed = false;
-        std::cerr << "FAIL: cart size was: " << actual_size
-                  << ". Expected: " << expected_size << std::endl;
-    }
+    ASSERT_EQUAL("after adding, ShoppingCart.getCurrentSize()", actual_size, expected_size)
 
     float actual_total = test_cart.get_totalPrice();
-    if (actual_total == item_price) {
-        std::cout << "PASS: cart total was: " << actual_total
-                  << ". Expected: " << item_price << std::endl;
-    }
-    else {
-        passed = false;
-        std::cerr << "FAIL: cart total was: " << actual_total
-                  << ". Expected: " << item_price << std::endl;
-    }
+    ASSERT_EQUAL("after adding, ShoppingCart.getCurrentSize()", actual_total, item_price)
 
     return passed;
 }
 
 bool test_cart_remove() {
-    bool passed;
+    bool passed = true;
     
+    std::string item_name = "T-Shirt";
+    float item_price = 19.99;
+    int item_quantity = 42;
+    Item test_item(item_name, item_price, item_quantity);
+    ShoppingCart test_cart;
+    test_cart.add(test_item);
+    float total_before = test_cart.get_totalPrice();
+    ASSERT_EQUAL("ShoppingCart.getCurrentSize() before removal", total_before, item_price)
+
     // Exists in cart
+    bool removed = test_cart.remove(test_item);
+    ASSERT_TRUE("ShoppingCart.remove(item) first removal", removed)
 
     // DNE in cart
-    
+    bool removed_again = test_cart.remove(test_item);
+    ASSERT_FALSE("ShoppingCart.remove(item) second removal", removed_again)
+
     return passed;
 }
 
 bool test_cart_change() {
-    bool passed;
+    bool passed = true;
     
     // Exists in cart
 
@@ -338,11 +231,11 @@ int run_cart_tests() {
 int run_tests() {
     int result = 0;
 
-#ifdef DEBUG_ITEM
+#if DEBUG_ITEM
     result += run_item_tests();
 #endif // DEBUG_ITEM
 
-#ifdef DEBUG_CART
+#if DEBUG_CART
     result += run_cart_tests();
 #endif // DEBUG_CART
 

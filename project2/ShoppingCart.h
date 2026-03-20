@@ -4,7 +4,6 @@
 #include "Item.h"
 #include "Bag.h"
 
-// template<class Item>
 class ShoppingCart : public Bag<Item> {
     float totalPrice;
 
@@ -17,5 +16,5 @@ public:
 	void clear();
 };
 
-#include "ShoppingCart.cpp"
+// #include "ShoppingCart.cpp"
 #endif // SHOPPINGCART_H_

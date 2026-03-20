@@ -1,8 +1,6 @@
 #include "ShoppingCart.h"
 
-ShoppingCart::ShoppingCart() : totalPrice(0) {
-    Bag<Item>();
-}
+ShoppingCart::ShoppingCart() : totalPrice(0) { }
 
 float ShoppingCart::get_totalPrice() const { return totalPrice; }
 

@@ -7,13 +7,14 @@
 #define DEBUG (DEBUG_ITEM | DEBUG_CART)
 
 // Limit the prompt loop so it doesn't get stuck
-#define MAX_ITEM_PROMPTS 999U
-
-constexpr const char* Y = "y";
+#define MAX_ITEM_PROMPTS 999
 
 #include "Item.h"
+#include "ShoppingCart.h"
 #include "debug.h"
 #include <sstream> // Required for istringstream
+
+#ifdef SHOPPINGCART_H_
 
 void prompt_for_items(ShoppingCart& cart) {
     std::string name;
@@ -27,8 +28,8 @@ void prompt_for_items(ShoppingCart& cart) {
         std::cin >> name;
         std::cin >> price;
         std::cin >> quantity;
-
-        Item new_item(name, price, quantity);
+        Item item(name, price, quantity);
+        cart.add(item);
 
         std::cout << "Want to continue? [y/n]";
         std::cin >> prompt_response;
@@ -39,19 +40,24 @@ void prompt_for_items(ShoppingCart& cart) {
     }
 }
 
+void print_cart() {
+
+}
+
+#endif
+
 int main()
 {
 #if DEBUG
     return run_tests();
 #endif // DEBUG
+    ShoppingCart cart;
 
+    std::cout << "Welcome to XXX SHOPPING CENTER." << std::endl;
+    std::cout << "Enter the item you selected as the following order:" << std::endl;
+    std::cout << "name unitPrice quantity" << std::endl;
+    std::cout << "(Name can not contain any space. Otherwise errors happen!)" << std::endl;
 
-std::cout << "Welcome to XXX SHOPPING CENTER." << std::endl;
-std::cout << "Enter the item you selected as the following order:" << std::endl;
-std::cout << "name unitPrice quantity" << std::endl;
-std::cout << "(Name can not contain any space. Otherwise errors happen!)" << std::endl;
-
-std::cout << "Want to continue y/n" << std::endl;
-
+    prompt_for_items(cart);
 
 }
