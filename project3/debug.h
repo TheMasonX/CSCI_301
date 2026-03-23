@@ -93,18 +93,7 @@
  * @param vec The vector of integers to be converted to a string.
  * @return A string representation of the vector in the format "{ elem1, elem2, ... }".
  */
-std::string VectorToString(const std::vector<int>& vec) {
-    std::stringstream ss;
-    ss << "{ ";
-    for (size_t i = 0; i < vec.size(); i++) {
-        ss << vec[i];
-        if (i < vec.size() - 1) {
-            ss << ", ";
-        }
-    }
-    ss << " }";
-    return ss.str();
-}
+std::string VectorToString(const std::vector<int>& vec);
 
 /**
  * Generates a random number based on the provided seed and size.
@@ -114,10 +103,7 @@ std::string VectorToString(const std::vector<int>& vec) {
  * @param size The upper bound for the random number (exclusive).
  * @return A random number between 0 and size - 1.
  */
-int GetRandomNumber(int& seed, int size) {
-    seed = (seed * 4241 + 1777) % 10000;
-    return (seed % size);
-}
+int GetRandomNumber(int& seed, int size);
 
 /**
  * Generates a random vector of integers from 1 to size, shuffled using the provided seed, which is updated to ensure different results for subsequent calls.
@@ -128,17 +114,7 @@ int GetRandomNumber(int& seed, int size) {
  * @param seed The seed for random number generation (passed by reference).
  * @return A shuffled vector of integers from 1 to size.
  */
-std::vector<int> GenerateRandomVector(int size, int& seed) {
-    std::vector<int> input(size);
-    for (int i = 0; i < size; i++) {
-        input[i] = i + 1;
-    }
-    // Shuffle the vector using the random seed (Fisher-Yates shuffle)
-    for (int j = 0; j < size; j++) {
-        int rand = GetRandomNumber(seed, size);
-        std::swap(input[j], input[rand]);
-    }
-    return input;
-}
+std::vector<int> GenerateRandomVector(int size, int& seed);
 
+#include "debug.cpp"
 #endif // DEBUG_H_
