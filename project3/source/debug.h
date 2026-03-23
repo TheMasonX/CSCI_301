@@ -1,6 +1,6 @@
 /**
  * @file debug.h
- * @brief Contains unit test macros.
+ * @brief Contains unit test macros and utility functions for debugging.
  *
  * Name: Luke Norr
  * StarID: lx8454qp
@@ -26,5 +26,48 @@
 
 #define ASSERT_TRUE(msg, actual) ASSERT_EQUAL(msg, actual, true)
 #define ASSERT_FALSE(msg, actual) ASSERT_EQUAL(msg, actual, false)
+
+std::string VectorToString(const std::vector<int>& vec) {
+    std::stringstream ss;
+    ss << "{ ";
+    for (size_t i = 0; i < vec.size(); i++) {
+        ss << vec[i];
+        if (i < vec.size() - 1) {
+            ss << ", ";
+        }
+    }
+    ss << " }";
+    return ss.str();
+}
+
+/**
+ * Generates a random number based on the provided seed and size.
+ * @param seed The seed for random number generation (passed by reference).
+ * @param size The upper bound for the random number (exclusive).
+ * @return A random number between 0 and size - 1.
+ */
+int GetRandomNumber(int& seed, int size) {
+    seed = (seed * 97 + 23) % 1000;
+    return (seed % size);
+}
+
+/**
+ * Generates a random vector of integers from 1 to size, shuffled using the provided seed.
+ * @param size The size of the vector to generate.
+ * @param seed The seed for random number generation (passed by reference).
+ * @return A shuffled vector of integers from 1 to size.
+ */
+std::vector<int> GenerateRandomVector(int size, int& seed) {
+    std::vector<int> input(size);
+    for (int i = 0; i < size; i++) {
+        input[i] = i + 1;
+    }
+    // Shuffle the vector using the random seed (Fisher-Yates shuffle)
+    for (int j = 0; j < size; j++) {
+        int rand = GetRandomNumber(seed, size);
+        std::swap(input[j], input[rand]);
+    }
+    return input;
+}
 
 #endif // DEBUG_H_

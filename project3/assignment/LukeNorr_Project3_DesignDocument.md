@@ -4,7 +4,7 @@
 
 ### Introduction
 
-[Describe the problem in your own words. Explain what kth smallest means and the goal of this program.]
+The *k*th smallest element of an array 
 
 ### Data Structures Used
 

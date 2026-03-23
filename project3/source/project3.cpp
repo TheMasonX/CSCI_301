@@ -3,47 +3,57 @@
 #include "kSmall.cpp"
 #include "debug.h"
 
+bool TestPartition() {
+    bool passed = true;
+    std::vector<int> input = {4, 10, 5, 1, 3, 6, 2, 9, 8, 7};
+    int first = 0;
+    int last = input.size() - 1;
+    int expectedPivotIndex = input.at(first) - 1; // Assuming the first element (4) is the pivot
+    int actualPivotIndex = partition(input, first, last);
+    ASSERT_EQUAL("Partition Test of " + VectorToString(input), actualPivotIndex, expectedPivotIndex)
+    return passed;
+}
+
 bool RunTest(int k, int expected, std::vector<int>& input) {
     bool passed = true;
     std::stringstream msg;
-    msg << k << "-th smallest of input {";
-    for (size_t i = 0; i < input.size(); i++) {
-        msg << input.at(i) << ", ";
-    }
-    msg << "}" << std::endl;
-
+    msg << k << "-th smallest of input " << VectorToString(input);
     int actual = kSmall(k, input);
     ASSERT_EQUAL(msg.str(), actual, expected)
     return passed;
 }
 
-bool Test1() {
-    return true;
+bool StaticTest() {
     std::vector<int> input = {4, 5, 2, 3, 1};
     int k = 3;
     int expected = 3;
     return RunTest(k, expected, input);
 }
 
-bool Test2() {
-    int size = 42;
-    std::vector<int> input;
-    input.resize(size);
-    for (int i = 0; i < size; i++) {
-        input[i] = i;
+bool RunRandomTests() {
+    int seed = 0;
+    int failedCount = 0;
+    for (int i = 0; i < 5; i++) {
+        int size = GetRandomNumber(seed, 20) + 5; // Size between 5 and 24
+        int k = GetRandomNumber(seed, size) + 1; // k between 1 and size
+        std::vector<int> input = GenerateRandomVector(size, seed);
+        if (!RunTest(k, k, input)) {
+            failedCount++;
+        }
     }
-    for (int j = 0; j < size; j++) {
-        int rand = (j * 23 + 7) % (size - j);
-        std::swap(input[j], input[rand]);
+
+    if (failedCount > 0) {
+        std::cerr << "Failed " << failedCount << " out of 5 random tests." << std::endl;
     }
-    // std::vector<int> input = {4, 5, 2, 3, 1};
-    int k = 3;
-    int expected = 3;
-    return RunTest(k, expected, input);
+    return failedCount == 0;
 }
 
 bool RunTests() {
-    bool passed = Test1() && Test2();
+    bool passed = true;
+    passed &= TestPartition();
+    passed &= StaticTest();
+    passed &= RunRandomTests();
+
     if (passed) {
         std::cout << "================ TESTS PASSED ================" << std::endl;
     }
@@ -53,28 +63,10 @@ bool RunTests() {
     return passed;
 }
 
-std::vector<int> GetArray() {
-    return std::vector<int>({4, 5, 2, 3, 1});
-    // return std::vector<int>({4, 7, 3, 6, 8, 1, 9, 2});
-}
-
 int main() {
-    if (!RunTests())
-    {
+    if (!RunTests()) {
         return 1;
     }
-    // std::vector<int> inputArray = GetArray();
-    // int k = 3; // Example: Find the 3rd smallest element
-    // int result = kSmall(k, inputArray, 0, inputArray.size() - 1);
-    // std::cout << "The " << k << "-th smallest element is: " << result << std::endl;
-    // std::cout << "-----------------------------\n" << std::endl;
-
-    // for (int k = 1; k <= inputArray.size(); k++) {
-    //     int result = kSmall(k, inputArray, 0, inputArray.size() - 1);
-    //     std::cout << "The " << k << "-th smallest element is: " << result << std::endl;
-    //     std::cout << "-----------------------------\n" << std::endl;
-    //     std::vector<int> inputArray = GetArray();
-    // }
 
     return 0;
 }
