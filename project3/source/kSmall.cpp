@@ -1,4 +1,17 @@
+/**
+ * @file kSmall.cpp
+ * @brief Implementation of the kSmall function to find the k-th smallest element in an array.
+ *
+ * Name: Luke Norr
+ * StarID: lx8454qp
+ * Instructor: Jie Meichsner
+ * Due Date: 3/22/26
+ * 
+ * This file contains the implementation of the partition function and the kSmall function, which uses a quickselect algorithm to efficiently find the k-th smallest element in an array.
+ * The partition function rearranges the elements of the array around a pivot, and the kSmall function recursively narrows down the search space based on the position of the pivot relative to k.
+ */
 
+#include "kSmall.h"
 #include <vector>
 #include <iostream>
 
@@ -9,7 +22,11 @@
  * @param first The starting index of the subarray to be printed.
  * @param last The ending index of the subarray to be printed.
  */
-void printArray(std::string msg, std::vector<int>& anArray, int first, int last) {
+void debugPrintArray(const std::string& msg, const std::vector<int>& anArray, int first, int last) {
+#ifndef DEBUG_PRINT
+    return; // Skip printing if DEBUG_PRINT is not defined
+#endif // DEBUG_PRINT
+
     std::cout << msg;
     for (int idx = first; idx <= last; idx++) {
         std::cout << anArray[idx] << " ";
@@ -17,80 +34,55 @@ void printArray(std::string msg, std::vector<int>& anArray, int first, int last)
     std::cout << std::endl;
 }
 
-/**
- * Partition the array anArray[first..last] about a pivot value and return the index of the pivot after partitioning.
- * The pivot value is chosen as the first element of the array for simplicity.
- * After partitioning, all elements less than the pivot value will be on the left side of the pivot,
- * and all elements greater than or equal to the pivot value will be on the right side.
- * @param anArray The input array to be partitioned.
- * @param first The starting index of the subarray to be partitioned.
- * @param last The ending index of the subarray to be partitioned.
- * @return The index of the pivot after partitioning.
- * @throws std::runtime_error if the partitioning fails
-*/
 int partition(std::vector<int>& anArray, int first, int last) {
-    // Choose a pivot value pivotValue from anArray[first..last]
-    // Partition the values of anArray[first..last] about pivotValue
-
     // Use the first element as the pivot for simplicity
     int pivotIndex = first;
     int pivotValue = anArray[pivotIndex];
 
-#if DEBUG_PRINT
-    std::cout << "\tPivot Index: " << pivotIndex << ", Pivot Value: " << pivotValue << std::endl;
-    printArray("\tBefore Partition: ", anArray, first, last);
-#endif
+    debugPrintArray("\tBefore Partition: ", anArray, first, last);
 
     // Partition
     for (int i = first; i <= last; i++) {
+        // Skip the pivot element itself
         if (i == pivotIndex) {
             continue;
         }
 
-#if DEBUG_PRINT
-        std::cout << "\t\tIndex: " << i << ", Value: " << anArray[i] << ", Pivot Index: " << pivotIndex << std::endl;
-#endif
+        // If the current element is less than the pivot value, swap it with the element at pivotIndex + 1
         if (anArray[i] < pivotValue) {
             std::swap(anArray[++pivotIndex], anArray[i]);
         }
-#if DEBUG_PRINT
-        printArray("\t\tAfter Swap: ", anArray, first, last);
-#endif
     }
+
+    // Finally, swap the pivot element with the element at pivotIndex to place it in its correct position
     std::swap(anArray[first], anArray[pivotIndex]);
 
-#if DEBUG_PRINT
-    printArray("\tAfter Partition: ", anArray, first, last);
-#endif
+    //debugPrintArray("\tAfter Partition: ", anArray, first, last);
 
+    std::string partitionResult = "Partitioned around pivot " + std::to_string(pivotValue) + " at index " + std::to_string(pivotIndex);
+    debugPrintArray("\t" + partitionResult + ": ", anArray, first, last);
     return pivotIndex;
 }
 
-/**
- * Finds the k-th smallest element in the given array.
- * @param k The order of the smallest element to find (1-based index).
- * @param anArray The input array of integers.
- * @param first The starting index of the current subarray.
- * @param last The ending index of the current subarray.
- * @return The k-th smallest element in the array.
- * @throws std::invalid_argument if k is out of bounds or if the array is empty
- * @throws std::runtime_error if the partitioning fails
- */
 int kSmall(int k, std::vector<int>& anArray, int first, int last) {
-#if DEBUG_PRINT
+#ifdef DEBUG_PRINT // Print the current state of the parameters for debugging purposes
     std::cout << "k: " << k << ", first: " << first << ", last: " << last << std::endl;
-#endif
+#endif // DEBUG_PRINT
     
+    // Validate input parameters
     if (last < first) {
         throw std::invalid_argument("Last index less than first");
     }
 
+    // Base case: If the subarray has only one element, return that element
     if (last == first) {
         return anArray[first];
     }
-    
+
+    // Partition the array and get the index of the pivot
     int pivotIndex = partition(anArray, first, last);
 
+    // Determine which side of the pivot the k-th smallest element lies and recurse accordingly
     if (k < pivotIndex - first + 1) {
         return kSmall(k, anArray, first, pivotIndex - 1);
     }
@@ -100,16 +92,4 @@ int kSmall(int k, std::vector<int>& anArray, int first, int last) {
     else {
         return kSmall(k - (pivotIndex - first + 1), anArray, pivotIndex + 1, last);
     }
-}
-
-/**
- * Finds the k-th smallest element in the given array.
- * @param k The order of the smallest element to find (1-based index).
- * @param anArray The input array of integers.
- * @return The k-th smallest element in the array.
- * @throws std::invalid_argument if k is out of bounds or if the array is empty
- * @throws std::runtime_error if the partitioning fails
- */
-int kSmall(int k, std::vector<int>& anArray) {
-    return kSmall(k, anArray, 0, anArray.size() - 1);
 }
