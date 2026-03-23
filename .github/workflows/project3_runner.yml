@@ -4,8 +4,12 @@ name: project3 Runner
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'project3/**'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'project3/**'
 
 jobs:
   run-project3:
