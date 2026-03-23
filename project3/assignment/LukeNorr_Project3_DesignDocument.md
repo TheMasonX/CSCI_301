@@ -103,6 +103,7 @@ The Project 3 files are stored in the `project3` folder of my GitHub submission.
 - `project3/project3.cpp`
 - `project3/kSmall.h`
 - `project3/kSmall.cpp`
+- `project3/project3_tests.h`
 - `project3/project3_tests.cpp`
 - `project3/debug.h`
 
@@ -113,11 +114,12 @@ The Project 3 files are stored in the `project3` folder of my GitHub submission.
 This program finds the k-th smallest element in an unsorted array of integers. It uses the quickselect approach with recursion and a partition function that always uses the first element in the current subarray as the pivot. The user enters the size of the array, the array values, and the value of k. The program then reports the k-th smallest value.
 
 ### How to Compile
-I compile in the `source` directory with `-Wall` and `-Wextra` enabled.
+I compile from the `project3` directory to the `output` folder with `-Wall` and `-Wextra` enabled.
+I use `mkdir` to ensure the `output` folder exists.
 
 ```bash
 cd project3
-g++ -Wall -Wextra -g project3.cpp -o output/project3.out
+mdkir output && g++ -Wall -Wextra -g project3.cpp -o output/project3.out
 ```
 
 #### Debug Mode
@@ -129,13 +131,13 @@ Use `-D{DEFINE}` to define a preprocessor
 To enable the unit tests in `project3_tests.cpp`:
 ```bash
 cd project3
-g++ -Wall -Wextra -g -DTEST project3.cpp -o output/project3_tests.out
+mdkir output && g++ -Wall -Wextra -g -DTEST project3.cpp -o output/project3_tests.out
 ```
 
 To enable debug logging, particularly of the partition function, define `DEBUG_PRINT`:
 ```bash
 cd project3
-g++ -Wall -Wextra -g -DTEST -DDEBUG_PRINT project3.cpp -o output/project3_tests.out
+mdkir output && g++ -Wall -Wextra -g -DTEST -DDEBUG_PRINT project3.cpp -o output/project3_tests.out
 ```
 
 ### How to Run

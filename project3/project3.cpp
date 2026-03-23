@@ -20,7 +20,7 @@
 #include "kSmall.h"
 
 #ifdef TEST
-#include "project3_tests.cpp"
+#include "project3_tests.h"
 #endif // TEST
 
 int main() {
