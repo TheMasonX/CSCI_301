@@ -1,0 +1,43 @@
+# This workflow compiles and runs the C++ programs for project3
+name: project3 Runner
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  run-project3:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Run Project3
+      run: |
+        cd project3
+        g++ -Wall -Wextra -g project3.cpp -o project3
+        script -c "
+          echo '=== Run 1: kth smallest in S1 (k=2 of {6 3 1 10 8 4}) ===' && printf '6\n6 3 1 10 8 4\n2\n' | ./project3 &&
+          echo '=== Run 2: kth smallest is pivot (k=4 of {6 3 1 10 8 4}) ===' && printf '6\n6 3 1 10 8 4\n4\n' | ./project3 &&
+          echo '=== Run 3: kth smallest in S2 (k=5 of {6 3 1 10 8 4}) ===' && printf '6\n6 3 1 10 8 4\n5\n' | ./project3
+        " project3_typescript_Luke_Norr
+        cat project3_typescript_Luke_Norr
+
+    - name: UnitTest Project3
+      run: |
+        cd project3
+        g++ -Wall -Wextra -g -DTEST project3.cpp -o project3_test
+        script -c "./project3_test" project3_test_typescript_Luke_Norr
+        cat project3_test_typescript_Luke_Norr
+
+    - name: Upload script files
+      uses: actions/upload-artifact@v4
+      with:
+        name: typescript-files
+        path: |
+          project3/project3_typescript_Luke_Norr
+          project3/project3_test_typescript_Luke_Norr

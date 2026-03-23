@@ -12,7 +12,6 @@
  */
 
 #include "kSmall.h"
-#include <vector>
 #include <iostream>
 
 /**
@@ -22,7 +21,7 @@
  * @param first The starting index of the subarray to be printed.
  * @param last The ending index of the subarray to be printed.
  */
-void debugPrintArray(const std::string& msg, const std::vector<int>& anArray, int first, int last) {
+void debugPrintArray(const std::string& msg, const int* anArray, int first, int last) {
 #ifndef DEBUG_PRINT
     return; // Skip printing if DEBUG_PRINT is not defined
 #endif // DEBUG_PRINT
@@ -34,7 +33,7 @@ void debugPrintArray(const std::string& msg, const std::vector<int>& anArray, in
     std::cout << std::endl;
 }
 
-int partition(std::vector<int>& anArray, int first, int last) {
+int partition(int* anArray, int first, int last) {
     // Use the first element as the pivot for simplicity
     int pivotIndex = first;
     int pivotValue = anArray[pivotIndex];
@@ -64,7 +63,7 @@ int partition(std::vector<int>& anArray, int first, int last) {
     return pivotIndex;
 }
 
-int kSmall(int k, std::vector<int>& anArray, int first, int last) {
+int kSmall(int k, int* anArray, int first, int last) {
 #ifdef DEBUG_PRINT // Print the current state of the parameters for debugging purposes
     std::cout << "k: " << k << ", first: " << first << ", last: " << last << std::endl;
 #endif // DEBUG_PRINT

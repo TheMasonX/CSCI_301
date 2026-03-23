@@ -1,5 +1,5 @@
 /**
- * @file project3_debug.cpp
+ * @file project3_tests.cpp
  * @brief Contains unit tests for the kSmall function and its helper functions.
  * 
  * Name: Luke Norr
@@ -30,7 +30,7 @@ bool RunTest(int k, int expected, std::vector<int>& input, std::string testName 
         msg << testName << ": ";
     }
     msg << k << "-th smallest of input " << VectorToString(input);
-    int actual = kSmall(k, input);
+    int actual = kSmall(k, input.data(), input.size());
     ASSERT_EQUAL(msg.str(), actual, expected)
     return passed;
 }
@@ -51,7 +51,7 @@ bool TestPartition() {
     int first = 0;
     int last = input.size() - 1;
     int expectedPivotIndex = input.at(first) - 1; // Assuming the first element (4) is the pivot
-    int actualPivotIndex = partition(input, first, last);
+    int actualPivotIndex = partition(input.data(), first, last);
     ASSERT_EQUAL("Partition Test of " + VectorToString(input), actualPivotIndex, expectedPivotIndex)
     return passed;
 }
@@ -61,11 +61,11 @@ bool TestPartition() {
  * It generates random input arrays of varying sizes and random values of k, and checks if the kSmall function returns the correct k-th smallest element.
  * @return true if all random tests pass, false otherwise.
  */
-bool RunRandomTests() {
+bool RunRandomTests(int numTests = 5, int minSize = 10, int maxSize = 20) {
     int seed = 0;
     int failedCount = 0;
-    for (int i = 0; i < 5; i++) {
-        int size = GetRandomNumber(seed, 20) + 10; // Size between 10 and 29
+    for (int i = 0; i < numTests; i++) {
+        int size = GetRandomNumber(seed, maxSize - minSize + 1) + minSize; // Size between minSize and maxSize
         int k = GetRandomNumber(seed, size) + 1; // k between 1 and size
         std::vector<int> input = GenerateRandomVector(size, seed);
         if (!RunTest(k, k, input, "Random Test " + std::to_string(i + 1))) {
@@ -74,7 +74,7 @@ bool RunRandomTests() {
     }
 
     if (failedCount > 0) {
-        std::cerr << "Failed " << failedCount << " out of 5 random tests." << std::endl;
+        std::cerr << "Failed " << failedCount << " out of " << numTests << " random tests." << std::endl;
     }
     return failedCount == 0;
 }
@@ -126,28 +126,34 @@ bool Test3() {
 //   Main Test Runner - runs all tests defined above and reports results
 // ====================================================================
 
+
 /**
  * Runs all the defined test cases for the kSmall function and its helper functions.
  * It keeps track of the number of failed tests and reports the results at the end.
  * @return true if all tests pass, false otherwise.
  */
 bool RunTests() {
+    int testCount = 0;
     int failedCount = 0;
 
-    // My tests
-    // failedCount += !TestPartition();
-    // failedCount += !RunRandomTests();
+#define TRACK_COUNTS(test) testCount++; failedCount += test() ? 0 : 1;
 
+    std::cout << "================ Running Required Tests for kSmall Function ================" << std::endl;
     // Tests defined by the project requirements
-    // failedCount += !Test1();
-    failedCount += !Test2();
-    // failedCount += !Test3();
+    TRACK_COUNTS(Test1)
+    TRACK_COUNTS(Test2)
+    TRACK_COUNTS(Test3)
+
+    // My tests
+    std::cout << "\n================ Running Additional Tests for kSmall Function ================" << std::endl;
+    TRACK_COUNTS(TestPartition)
+    TRACK_COUNTS(RunRandomTests)
 
     if (failedCount == 0) {
-        std::cout << "================ All TESTS PASSED ================" << std::endl;
+        std::cout << GREEN << "================ All TESTS PASSED ================" << RESET << std::endl;
     }
     else {
-        std::cerr << "================ " << failedCount << " TESTS FAILED ================" << std::endl;
+        std::cerr << RED << "================ " << failedCount << "/" << testCount << " TESTS FAILED ================" << RESET << std::endl;
     }
     return failedCount == 0;
 }
